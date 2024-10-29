@@ -2,6 +2,9 @@ package edu.ifam.aranoua.sistema_gestao.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "autor")
 public class Autor {
     @Id
@@ -13,10 +16,18 @@ public class Autor {
     @Column(name = "autorinstituicao", nullable = false)
     private String instituicao;
 
+    @ManyToMany(mappedBy = "autores")
+    private List<Artigo> artigos = new ArrayList<>();
+
     public Autor() {}
 
     public Autor(Long id, String nome, String instituicao) {
         this.id = id;
+        this.nome = nome;
+        this.instituicao = instituicao;
+    }
+
+    public Autor(String nome, String instituicao) {
         this.nome = nome;
         this.instituicao = instituicao;
     }
@@ -43,5 +54,20 @@ public class Autor {
 
     public void setInstituicao(String instituicao) {
         this.instituicao = instituicao;
+    }
+
+    public List<Artigo> getArtigos() {
+        return artigos;
+    }
+
+    public void setArtigos(List<Artigo> artigos) {
+        this.artigos = artigos;
+    }
+
+    public void addArtigo(Artigo artigo){
+        if (!this.artigos.contains(artigo)){
+            this.artigos.add(artigo);
+            artigo.getAutores().add(this);
+        }
     }
 }
