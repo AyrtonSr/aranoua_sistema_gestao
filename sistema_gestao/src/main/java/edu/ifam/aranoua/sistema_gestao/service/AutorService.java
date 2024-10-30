@@ -5,11 +5,13 @@ import edu.ifam.aranoua.sistema_gestao.dto.AutorOutPutDTO;
 import edu.ifam.aranoua.sistema_gestao.model.Autor;
 import edu.ifam.aranoua.sistema_gestao.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AutorService {
     @Autowired
     private AutorRepository autorRepository;

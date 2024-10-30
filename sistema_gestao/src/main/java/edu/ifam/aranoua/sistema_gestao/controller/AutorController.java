@@ -4,15 +4,17 @@ import edu.ifam.aranoua.sistema_gestao.dto.AutorInputDTO;
 import edu.ifam.aranoua.sistema_gestao.dto.AutorOutPutDTO;
 import edu.ifam.aranoua.sistema_gestao.model.Autor;
 import edu.ifam.aranoua.sistema_gestao.service.AutorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/autor")
+@RequestMapping("/api/autor")
 public class AutorController {
 
+    @Autowired
     private AutorService autorService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,7 +53,7 @@ public class AutorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         AutorOutPutDTO possivelAutor = autorService.getById(id);
         if (possivelAutor != null) {
