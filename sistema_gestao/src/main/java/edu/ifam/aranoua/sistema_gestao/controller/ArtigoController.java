@@ -38,6 +38,7 @@ public class ArtigoController {
         }
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArtigoOutPutDTO> create(@RequestBody ArtigoInputDTO artigoInputDTO) {
         ArtigoOutPutDTO artigoSalvoOutputDTO = artigoService.create(artigoInputDTO);
         if (artigoSalvoOutputDTO != null){
