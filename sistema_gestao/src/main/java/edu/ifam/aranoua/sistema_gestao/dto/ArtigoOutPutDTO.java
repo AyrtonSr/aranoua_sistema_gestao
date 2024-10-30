@@ -1,7 +1,9 @@
 package edu.ifam.aranoua.sistema_gestao.dto;
 
 import edu.ifam.aranoua.sistema_gestao.model.Artigo;
+import edu.ifam.aranoua.sistema_gestao.model.Autor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,15 +11,20 @@ public class ArtigoOutPutDTO {
     private Long id;
     private String titulo;
     private int anopublicacao;
-    private RevistaCientificaOutPutDTO revistaCientificaOutPutDTO;
-    private List<AutorOutPutDTO> autores;
+    private String revistaCientificaOutPutDTO;
+    private List<String> autores;
 
     public ArtigoOutPutDTO(Artigo artigo){
         this.id = artigo.getId();
         this.titulo = artigo.getTitulo();
         this.anopublicacao = artigo.getAnopublicacao();
-        this.revistaCientificaOutPutDTO = new RevistaCientificaOutPutDTO(artigo.getRevistaCientifica());
-        this.autores = artigo.getAutores().stream().map(AutorOutPutDTO::new).collect(Collectors.toList());
+        this.revistaCientificaOutPutDTO = artigo.getRevistaCientifica().getNome();
+        List<String> autores = new ArrayList<>();
+
+        for(Autor autor : artigo.getAutores()){
+            autores.add(autor.getNome());
+        }
+        this.autores = autores;
     }
 
     public Long getId() {
@@ -44,19 +51,19 @@ public class ArtigoOutPutDTO {
         this.anopublicacao = anopublicacao;
     }
 
-    public RevistaCientificaOutPutDTO getRevistaCientificaOutPutDTO() {
+    public String getRevistaCientificaOutPutDTO() {
         return revistaCientificaOutPutDTO;
     }
 
-    public void setRevistaCientificaOutPutDTO(RevistaCientificaOutPutDTO revistaCientificaOutPutDTO) {
+    public void setRevistaCientificaOutPutDTO(String revistaCientificaOutPutDTO) {
         this.revistaCientificaOutPutDTO = revistaCientificaOutPutDTO;
     }
 
-    public List<AutorOutPutDTO> getAutores() {
+    public List<String> getAutores() {
         return autores;
     }
 
-    public void setAutores(List<AutorOutPutDTO> autores) {
+    public void setAutores(List<String> autores) {
         this.autores = autores;
     }
 }
